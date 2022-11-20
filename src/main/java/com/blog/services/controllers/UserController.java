@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public class UserController
 
     //Post - create user
    @PostMapping("/addUser")
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO)
+    public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserDTO userDTO)
     {
         UserDTO createUser= this.userService.createUser(userDTO);
         return new ResponseEntity<>(createUser, HttpStatus.CREATED);
@@ -30,7 +31,7 @@ public class UserController
 
     // PUT- Update User
     @PutMapping("/updateUser/{userId}")
-    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO ,@PathVariable( "userId") Integer uid) throws ResourceNotFoundException {
+    public ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UserDTO userDTO ,@PathVariable( "userId") Integer uid) throws ResourceNotFoundException {
         UserDTO updatedUser= this.userService.updateUser(userDTO,uid);
         return ResponseEntity.ok(updatedUser);
     }
